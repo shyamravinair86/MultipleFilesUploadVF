@@ -1,13 +1,13 @@
 global with sharing class FileUploadController {
     
     @RemoteAction
-    global static String attachBlob(String parentId, String attachmentId, String fileName, String contentType, String base64BlobValue){
+    global static String attachBlob(String attachmentId, String fileName, String base64BlobValue){
         String contentId = '';
         if(attachmentId == '' || attachmentId == null){
             ContentVersion cv = new ContentVersion();
             cv.VersionData = EncodingUtil.Base64Decode(base64BlobValue);
             cv.Title = fileName;
-            cv.PathOnClient = '/foo.txt';
+            cv.PathOnClient = 'foo';
             cv.IsMajorVersion = false;
             insert cv;
             contentId = cv.Id;
@@ -32,7 +32,6 @@ global with sharing class FileUploadController {
             cdl.Visibility = 'AllUsers';
             insert cdl;
         }
-        //return cdl.Id;
     }
 
 }

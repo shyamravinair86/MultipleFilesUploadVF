@@ -157,10 +157,9 @@
 					var base64value = window.btoa(evt.target.result);
 					
 					//Use js remoting to send the base64 encoded chunk for uploading
-					FileUploadController.attachBlob(parentId,attachmentId,currentFile.name,currentFile.type,base64value,function(result,event){
+					FileUploadController.attachBlob(attachmentId,currentFile.name,base64value,function(result,event){
 			
 						//Proceed if there were no errors with the remoting call
-						console.log('event status1==> ',event);
 						if(event.status == true){
 							//Update the percent of the status bar and percent, first determine percent complete
 							var percentComplete = Math.round((stopByte / currentFile.size) * 100);
@@ -195,11 +194,8 @@
 			};
 			
 		}else{
-			console.log('attachmentId CV-->',attachmentId);
 			FileUploadController.linkParent(parentId,attachmentId,function(result,event){
-				console.log('event status==> ',event);
 				if(event.status == true){
-					//attachmentId = result;
 					//This file has completed, all byte chunks have been uploaded, set status on the div to complete
 					$upload.attr('data-status','complete');
 					
